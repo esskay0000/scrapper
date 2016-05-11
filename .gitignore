@@ -1,0 +1,12 @@
+
+env/*
+Logs/*
+git.txt
+*.pdf
+*.db
+*.swp
+*.*.swp
+.*.swp
+*.pyc
+I-Track.config
+tc100-errorlist.*
