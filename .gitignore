@@ -1,12 +1,12 @@
 
 env/*
 Logs/*
-git.txt
 *.pdf
 *.db
 *.swp
 *.*.swp
 .*.swp
 *.pyc
+*.txt
 I-Track.config
 tc100-errorlist.*
