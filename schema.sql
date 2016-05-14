@@ -2,7 +2,7 @@ PRAGMA foreign_keys=1;
 
 
 
-CREATE TABLE leads(	id VARCHAR(10) PRIMARY KEY NOT NULL,
+CREATE TABLE leads(	id  INTEGER PRIMARY KEY NOT NULL,
 			code VARCHAR(25) UNIQUE ,
 			customer_name VARCHAR(100) NOT NULL,
 			address_line1 VARCHAR(50),
