@@ -4,6 +4,9 @@ from bs4 import BeautifulSoup
 import requests
 import sys
 
+
+import DbManager
+
 def Icont():
     _str = input('\ndo you want to continue?\n')
     if _str <> 1:
@@ -15,23 +18,25 @@ def GetLabs(_result):
     for _e in _lab_listing:
         _lab_name_div = _e.find('div',{'class':'diag-details-block diag-name-container'})
         _lab_html_page = _lab_name_div.find('a',{'class':'link doc-name smokeliftdiagnosticLink'})
-        print _lab_html_page.get('href')
         _lab_name_h2 = _lab_name_div.find('h2')
-        print _lab_name_h2.text.strip()
+	_customerDict = {}
+        print 'inserting ...\t',_lab_name_h2.text.strip()
+	_customerDict['customerName'] = _lab_name_h2.text.strip()
         _lab_location_span = _lab_name_div.find('span',{'itemprop':'address'})
-        print _lab_location_span.text.strip()
+        _lab_location = _lab_location_span.text.strip().split(',')
+	_customerDict['_city']  = _lab_location [1]
+	_customerDict['_area'] = _lab_location[0]
         _r = requests.get(str(_lab_html_page.get('href')))
         _data = _r.text
-        _soup = BeautifulSoup(_data)
+        _soup = BeautifulSoup(_data,'html5lib')
         _div_address = _soup.find('div',{'class':'practice-address'})
         _web_address = _div_address.text
-        print _web_address
         _span_postal_address = _soup.find('span',{'itemprop':'address'})
         _meta_address = _span_postal_address.find_all('meta')
-        _postal_address = {}
         for _m in _meta_address:
-            print _m['itemprop'],_m['content']
-        print '\n\n\nsleeping....'
+		_customerDict[_m['itemprop']] = _m['content']
+	DbManager.InsertCustomer(_customerDict)
+	print '\n\n\nsleeping....'
         import time
         time.sleep(10)
 
