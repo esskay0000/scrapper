@@ -29,25 +29,25 @@ def InsertCustomer(_customerDict):
 	GetCursor()
         _insert_list = []
         if 'customerName' in _customerDict:
-            _insert_list.append(_customerDict['customerName'])
+            _insert_list.append(_customerDict['customerName'].strip())
         else: 
             insert_list.append('Unknown Customer')
         if 'streetAddress' in _customerDict:
-            _insert_list.append(_customerDict['streetAddress'])
+            _insert_list.append(_customerDict['streetAddress'].strip())
         else:
             _insert_list.append('')
         _insert_list.append('')#address_line2
         _insert_list.append('')#address_line3
         if '_area' in _customerDict:
-            _insert_list.append(_customerDict['_area'])
+            _insert_list.append(_customerDict['_area'].strip())
         else:
             _insert_list.append('')
         if 'postalCode' in _customerDict:
-            _insert_list.append(_customerDict['postalCode'])
+            _insert_list.append(_customerDict['postalCode'].strip())
         else:
             _insert_list.append('')
         if '_city' in _customerDict:
-            _insert_list.append(_customerDict['_city'])
+            _insert_list.append(_customerDict['_city'].strip())
         else:
             _insert_list.append('')
         _insert_list.append('')#state
@@ -65,6 +65,9 @@ def InsertCustomer(_customerDict):
 		if con:
 			con.close()
 	return _ret
+
+
+
 
 
 
