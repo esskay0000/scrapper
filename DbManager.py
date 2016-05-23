@@ -25,6 +25,9 @@ def InsertCustomer(_customerDict):
 	"""
 	global con
 	global cur
+        if CheckDuplicate(_customerDict):
+            print 'Duplicate: ', _customerDict['customerName'],' : ' , _customerDict['streetAddress']
+            return
 	_ret = []
 	GetCursor()
         _insert_list = []
@@ -67,8 +70,13 @@ def InsertCustomer(_customerDict):
 	return _ret
 
 
-
-
+def CheckDuplicate(_customerDict):
+    _query = 'SELECT * FROM leads where customer_name = "' + _customerDict['customerName'].strip() + '" AND address_line1 = "' + _customerDict['streetAddress'].strip() + '"' 
+    _results = GetQueryResults(_query)
+    if len(_results) > 0 :
+        return True 
+    else:
+        return False
 
 
 #INCREMENT COUNTER BY VALUE
@@ -194,3 +202,6 @@ def GetCursor():
 
 if  __name__ == '__main__':
 	print 'DbManager Works...'
+        CheckDuplicate({'customerName':'Suburban Diagnostics','streetAddress':'Ground Floor, Kothari Plaza, Lulla Nagar, Landmark: Near Gera Junction'})
+        CheckDuplicate({'customerName':sys.argv[1],'streetAddress':sys.argv[2]})
+
