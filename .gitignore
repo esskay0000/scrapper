@@ -10,3 +10,4 @@ Logs/*
 *.txt
 I-Track.config
 tc100-errorlist.*
+!requirements.txt
